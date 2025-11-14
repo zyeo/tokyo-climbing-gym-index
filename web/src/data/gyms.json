@@ -1,0 +1,43 @@
+[
+    {
+      "name": "B-Pump Tokyo Akihabara",
+      "prefecture": "Tokyo",
+      "ward": "Chiyoda", 
+      "district": "Akihabara", 
+      "style": ["Comp", "American Style"],
+      "size": 3, 
+      "cost": 3, 
+      "setting_quality": 5, 
+      "boards": [],
+      "training_tools": ["Campus Board", "Hangboard", "Spray Wall"],      
+      "notes": "Small comp slab wall. Spray wall is small and not steep. 2nd floor is the best."
+    },
+    {
+      "name": "Rocklands Ichikawa",
+      "prefecture": "Chiba",
+      "ward": "Ichikawa",
+      "district": "Minami-Gyotoku",
+      "style": ["Steep", "Power"],
+      "size": 2,
+      "cost": 2,
+      "setting_quality": 4,
+      "boards": ["Moon"],
+      "training_tools": ["Campus Board", "Hangboard"],
+      "notes": "Strong local scene, great board area. Training-focused environment."
+    },
+  
+    {
+      "name": "Base Camp Tokorozawa",
+      "prefecture": "Saitama",
+      "ward": "Tokorozawa",
+      "district": "Higashi-Tokorozawa",
+      "style": ["Endurance", "Power-Endurance"],
+      "size": 3,
+      "cost": 3,
+      "setting_quality": 4,
+      "boards": ["Moon", "Kilter"],
+      "training_tools": ["Rings", "Pegboard"],
+      "notes": "Huge facility with lots of variety. Great for long sessions and circuit training."
+    }
+  ]
+  

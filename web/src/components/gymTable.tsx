@@ -1,9 +1,9 @@
 'use client'
-import gyms from '@/data/gyms.json' assert { type: "json" }
-import type { GymList } from "@/constants/gymConfig";
+import rawGyms from '@/data/gyms.json' assert { type: "json" }
+import { GymListSchema } from "@/types/gymSchema";
 import { SIZE_MAP, COST_MAP, QUALITY_MAP } from "@/constants/gymConfig";
 
-const gymData: GymList = gyms;
+const gymData = GymListSchema.parse(rawGyms);
 
 export default function GymTable() {
   return (

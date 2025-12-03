@@ -1,26 +1,64 @@
 'use client'
+import { useState } from "react"
 import rawGyms from '@/data/gyms.json' assert { type: "json" }
 import { GymListSchema } from "@/types/gymSchema";
-import { SIZE_MAP, COST_MAP, QUALITY_MAP } from "@/constants/gymConfig";
+import { SIZE_MAP, COST_MAP, QUALITY_MAP, DEFAULT_SORT_ORDER} from "@/constants/gymConfig";
+import { sortGyms, type SortKey, type SortDir } from "@/lib/sortHelpers";
 
 const gymData = GymListSchema.parse(rawGyms);
 
 export default function GymTable() {
+  const [sortKey, setSortKey] = useState<SortKey | null>(null)
+  const [sortDir, setSortDir] = useState<SortDir>("desc")
+
+  const handleSort = (key: SortKey) => {
+    if (sortKey === key) {
+      setSortDir(sortDir === "asc" ? "desc" : "asc")
+    } else {
+      setSortKey(key)
+      setSortDir(DEFAULT_SORT_ORDER[key])
+    }
+  }
+
+  const renderArrow = (key: SortKey) => {
+    if (sortKey !== key) return ""
+    else{
+      return sortDir === "asc" ? " ▴" : " ▾"
+    }
+
+  }
+  const sortedGyms = sortGyms(gymData, sortKey, sortDir);
+
   return (
-    <table className="border-collapse border border-gray-400 w-full text-sm">
+    <table className="border-collapse border border-gray-400 w-full text-sm"> 
       <thead className="bg-gray-100">
         <tr>
           <th className="border p-2">Name</th>
           <th className="border p-2">Location</th>
           <th className="border p-2">Style</th>
-          <th className="border p-2">Size</th>
-          <th className="border p-2">Cost</th>
-          <th className="border p-2">Quality</th>
+          <th 
+            className="border p-2 cursor-pointer select-none"
+            onClick={() => handleSort("size")}
+          >
+            Size{renderArrow("size")}
+          </th>
+          <th 
+            className="border p-2 cursor-pointer select-none"
+            onClick={() => handleSort("cost")}
+          >
+            Cost{renderArrow("cost")}
+          </th>
+          <th 
+            className="border p-2 cursor-pointer select-none"
+            onClick={() => handleSort("setting_quality")}
+          >
+            Quality{renderArrow("setting_quality")}
+          </th>
           <th className="border p-2">Notes</th>
         </tr>
       </thead>
       <tbody>
-        {gymData.map((gym, i) => (
+        {sortedGyms.map((gym, i) => (
           <tr key={i} className="hover:bg-gray-50">
             <td className="border p-2 font-medium">{gym.name}</td>
             <td className="border p-2">{gym.prefecture}, {gym.ward}, {gym.district}</td>

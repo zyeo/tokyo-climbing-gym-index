@@ -22,3 +22,8 @@ export const SIZE_MAP: Record<number, string>= {
     5: "*****",
   } as const
   
+  export const DEFAULT_SORT_ORDER = {
+    size: "desc",
+    cost: "asc",
+    setting_quality: "desc",
+  } as const

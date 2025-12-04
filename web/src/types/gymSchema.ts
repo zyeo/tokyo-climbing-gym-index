@@ -4,15 +4,16 @@ import { numericEnum } from "@/lib/zodHelpers"
 
 export const GymSchema = z.object({
     name: z.string(),
-    prefecture: z.string(),
-    ward: z.string(),
-    district: z.string(),
+    location: z.string(),
+    plusCode: z.string().nullable(),
     style: z.array(z.string()),
     size: numericEnum(SIZE_VALUES, "Size"),
     cost: numericEnum(COST_VALUES, "Cost"),
-    setting_quality: numericEnum(QUALITY_VALUES, "Quality"),
-    boards: z.array(z.string()),
-    training_tools: z.array(z.string()),
+    quality: numericEnum(QUALITY_VALUES, "Quality"),
+    hangboard: z.boolean(),
+    campusBoard: z.boolean(), 
+    sprayWall: z.boolean(),
+    trainingBoards: z.array(z.string()),
     notes: z.string(),
   })
 

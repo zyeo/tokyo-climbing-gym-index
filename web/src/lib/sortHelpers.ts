@@ -1,7 +1,7 @@
 import type { Gym } from "@/types/gymSchema";
 import { SIZE_MAP, COST_MAP, QUALITY_MAP } from "@/constants/gymConfig";
 
-export type SortKey = "size" | "cost" | "setting_quality";
+export type SortKey = "size" | "cost" | "quality";
 export type SortDir = "asc" | "desc";
 
 
@@ -11,8 +11,8 @@ export function getSortValue(gym: Gym, key: SortKey): number {
         return gym.size;
       case "cost":
         return gym.cost;
-      case "setting_quality":
-        return gym.setting_quality;
+      case "quality":
+        return gym.quality;
     }
   }
   

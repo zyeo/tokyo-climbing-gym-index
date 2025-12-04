@@ -1,6 +1,6 @@
 'use client'
 import { useState } from "react"
-import rawGyms from '@/data/gyms.json' assert { type: "json" }
+import rawGyms from '@/data/gym_list.json' assert { type: "json" }
 import { GymListSchema } from "@/types/gymSchema";
 import { SIZE_MAP, COST_MAP, QUALITY_MAP, DEFAULT_SORT_ORDER} from "@/constants/gymConfig";
 import { sortGyms, type SortKey, type SortDir } from "@/lib/sortHelpers";
@@ -50,9 +50,9 @@ export default function GymTable() {
           </th>
           <th 
             className="border p-2 cursor-pointer select-none"
-            onClick={() => handleSort("setting_quality")}
+            onClick={() => handleSort("quality")}
           >
-            Quality{renderArrow("setting_quality")}
+            Quality{renderArrow("quality")}
           </th>
           <th className="border p-2">Notes</th>
         </tr>
@@ -61,11 +61,11 @@ export default function GymTable() {
         {sortedGyms.map((gym, i) => (
           <tr key={i} className="hover:bg-gray-50">
             <td className="border p-2 font-medium">{gym.name}</td>
-            <td className="border p-2">{gym.prefecture}, {gym.ward}, {gym.district}</td>
+            <td className="border p-2">{gym.plusCode}</td>
             <td className="border p-2">{gym.style.join(', ')}</td>
             <td className="border p-2">{SIZE_MAP[gym.size]}</td>
             <td className="border p-2">{COST_MAP[gym.cost]}</td>
-            <td className="border p-2">{QUALITY_MAP[gym.setting_quality]}</td>
+            <td className="border p-2">{QUALITY_MAP[gym.quality]}</td>
             <td className="border p-2">{gym.notes}</td>
           </tr>
         ))}

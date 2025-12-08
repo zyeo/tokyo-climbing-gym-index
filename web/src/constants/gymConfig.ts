@@ -29,3 +29,9 @@ export const SIZE_MAP: Record<number, string>= {
     cost: "asc",
     quality: "desc",
   } as const
+
+  export const BOOLEAN_MAP: Record<string, string> = {
+    "true": "Yes",
+    "false": "No",
+  } as const
+

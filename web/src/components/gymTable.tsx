@@ -4,10 +4,12 @@ import rawGyms from '@/data/gym_list.json' assert { type: "json" }
 import { GymListSchema } from "@/types/gymSchema";
 import { SIZE_MAP, COST_MAP, QUALITY_MAP, DEFAULT_SORT_ORDER, BOOLEAN_MAP} from "@/constants/gymConfig";
 import { sortGyms, type SortKey, type SortDir } from "@/lib/sortHelpers";
+import { Filters } from "@/types/filters"; 
+import { filterGyms } from "@/lib/filterHelpers";
 
 const gymData = GymListSchema.parse(rawGyms);
 
-export default function GymTable() {
+export default function GymTable({ filters }: { filters: Filters }) {
   const [sortKey, setSortKey] = useState<SortKey | null>(null)
   const [sortDir, setSortDir] = useState<SortDir>("desc")
 
@@ -19,7 +21,7 @@ export default function GymTable() {
       setSortDir(DEFAULT_SORT_ORDER[key])
     }
   }
-
+  
   const renderArrow = (key: SortKey) => {
     if (sortKey !== key) return ""
     else{
@@ -27,7 +29,8 @@ export default function GymTable() {
     }
 
   }
-  const sortedGyms = sortGyms(gymData, sortKey, sortDir);
+  const filteredGyms = filterGyms(gymData, filters)
+  const sortedGyms = sortGyms(filteredGyms, sortKey, sortDir)
 
   return (
     <table className="border-collapse border border-gray-400 w-full text-sm"> 

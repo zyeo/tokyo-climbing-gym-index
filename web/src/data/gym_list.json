@@ -3,6 +3,8 @@
     "name": "BPUMP Akihabara",
     "location": "1 Chome-1-8 Yushima, Bunkyo City, Tokyo 113-0034, Japan",
     "plusCode": "MQX9+W5 Bunkyo City, Tokyo, Japan",
+    "latitude": 35.699889,
+    "longitude": 139.768028,
     "style": [
       "Normal",
       "Competition Style"
@@ -17,9 +19,11 @@
     "notes": "Spray wall is mid. "
   },
   {
-    "name": "BPUMP Ogikubo",
+    "name": "BPUMP Ogikubo ",
     "location": "Japan, 〒167-0043 Tokyo, Suginami City, Kamiogi, 1 Chome−10−12 3F",
     "plusCode": "PJ39+WF Suginami City, Tokyo, Japan",
+    "latitude": 35.704913,
+    "longitude": 139.618728,
     "style": [
       "Competition Style"
     ],
@@ -28,14 +32,16 @@
     "quality": 4,
     "hangboard": false,
     "campusBoard": false,
-    "sprayWall": false,
+    "sprayWall": true,
     "trainingBoards": [],
     "notes": "Hard."
   },
   {
-    "name": "Underground",
+    "name": "Underground ",
     "location": "3-1-14, higashi-ju-jo, 1, Kita City, Tokyo 114-0001, Japan",
     "plusCode": "QP7H+PC Kita City, Tokyo, Japan",
+    "latitude": 35.764357,
+    "longitude": 139.728519,
     "style": [
       "Oldschool Style"
     ],
@@ -52,6 +58,8 @@
     "name": "Maboo",
     "location": "Japan, 〒208-0023 Tokyo, Musashimurayama, Inadaira, 1 Chome−７２−1",
     "plusCode": "P9VG+49 Musashimurayama, Tokyo, Japan",
+    "latitude": 35.742784,
+    "longitude": 139.376107,
     "style": [
       "Competition Style"
     ],
@@ -68,6 +76,8 @@
     "name": "Next Gen",
     "location": "3 Chome-13-26 Nobitome, Niiza, Saitama 352-0011, Japan",
     "plusCode": "QHR3+MG Niiza, Saitama, Japan",
+    "latitude": 35.791706,
+    "longitude": 139.553749,
     "style": [
       "Competition Style"
     ],
@@ -86,6 +96,8 @@
     "name": "D-Bouldering Tachikawa",
     "location": "Japan, 〒190-0023 Tokyo, Tachikawa, Shibasakicho, 2 Chome−12−24 5F MK",
     "plusCode": "MCW6+99 Tachikawa, Tokyo, Japan",
+    "latitude": 35.695897,
+    "longitude": 139.410942,
     "style": [
       "Normal"
     ],
@@ -104,6 +116,8 @@
     "name": "Urban Basecamp Shinjuku",
     "location": "Japan, 〒160-0023 Tokyo, Shinjuku City, Nishishinjuku, 7 Chome−3−1 三光パークビル B1F",
     "plusCode": "MMWX+8H Shinjuku City, Tokyo, Japan",
+    "latitude": 35.695839,
+    "longitude": 139.698916,
     "style": [
       "Normal"
     ],
@@ -117,9 +131,11 @@
     "notes": "Nice Spray wall."
   },
   {
-    "name": "Volny",
+    "name": "Volny ",
     "location": "Japan, 〒180-0001 Tokyo, Musashino, Kichijoji Kitamachi, 1 Chome−18−3 コーポむさしの",
     "plusCode": "PH5G+CM Musashino, Tokyo, Japan",
+    "latitude": 35.708479,
+    "longitude": 139.576697,
     "style": [
       "Outdoor Style"
     ],
@@ -136,6 +152,8 @@
     "name": "The Stone Session Tokyo",
     "location": "1 Chome-23-18 Mukojima, Sumida City, Tokyo 131-0033, Japan",
     "plusCode": "PR64+2Q Sumida City, Tokyo, Japan",
+    "latitude": 35.71011,
+    "longitude": 139.806936,
     "style": [
       "Competition Style"
     ],

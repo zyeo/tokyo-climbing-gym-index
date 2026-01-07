@@ -7,6 +7,8 @@ export const GymSchema = z.object({
     location: z.string(),
     plusCode: z.string().nullable(),
     style: z.array(z.string()),
+    latitude: z.number().min(-90).max(90).nullable(),
+    longitude: z.number().min(-180).max(180).nullable(),
     size: numericEnum(SIZE_VALUES, "Size"),
     cost: numericEnum(COST_VALUES, "Cost"),
     quality: numericEnum(QUALITY_VALUES, "Quality"),

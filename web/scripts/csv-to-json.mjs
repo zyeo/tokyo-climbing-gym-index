@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { parse } from 'csv-parse/sync';
 
-const csv = fs.readFileSync('src/data/gym_list.csv', 'utf8');
+const csv = fs.readFileSync('src/data/gym_list2.csv', 'utf8');
 
 // Turn each row into an object using the header row as keys
 const rows = parse(csv, {
@@ -13,6 +13,8 @@ const gyms = rows.map((row) => ({
 name: row.name,
 location: row.location,
 plusCode: row.plus_code || null,
+latitude: Number(row.latitude),
+longitude: Number(row.longitude),
 style: row.style ? row.style.split(',').map(s => s.trim()) : [],
 size: Number(row.size),
 cost: Number(row.cost),

@@ -13,15 +13,14 @@ export type UserLocationStatus =
   | "error";     // other error (timeout, etc.)
 
 export type UserLocationResult = {
-  origin: LatLng;                 // always defined (fallback or geo)
-  source: "fallback" | "geo";
+  origin: LatLng | null;          // always defined (geo or  null)
+  source: "none" | "geo";
   status: UserLocationStatus;
   error?: string;
   requestLocation: () => void;    // call to prompt user
 };
 
 type Options = {
-  fallback: LatLng;
   autoRequest?: boolean;          // default true
   timeoutMs?: number;             // default 8000
   enableHighAccuracy?: boolean;   // default true
@@ -29,14 +28,13 @@ type Options = {
 
 export function useUserLocation(options: Options): UserLocationResult {
   const {
-    fallback,
     autoRequest = true,
     timeoutMs = 8000,
     enableHighAccuracy = true,
   } = options;
 
-  const [origin, setOrigin] = useState<LatLng>(fallback);
-  const [source, setSource] = useState<"fallback" | "geo">("fallback");
+  const [origin, setOrigin] = useState<LatLng | null>(null);
+  const [source, setSource] = useState<"none" | "geo">("none");
   const [status, setStatus] = useState<UserLocationStatus>(
     autoRequest ? "loading" : "idle"
   );
@@ -47,6 +45,8 @@ export function useUserLocation(options: Options): UserLocationResult {
 
     if (!("geolocation" in navigator)) {
       setStatus("unavailable");
+      setOrigin(null);
+      setSource("none") 
       return;
     }
 
@@ -59,19 +59,15 @@ export function useUserLocation(options: Options): UserLocationResult {
         setStatus("granted");
       },
       (err) => {
-        // Keep fallback origin, but reflect what happened
         if (err.code === err.PERMISSION_DENIED) setStatus("denied");
         else setStatus("error");
         setError(err.message);
+        setOrigin(null);
+        setSource("none");
       },
       { enableHighAccuracy, timeout: timeoutMs }
     );
   }, [enableHighAccuracy, timeoutMs]);
-
-  // If fallback changes (rare), update origin only if still using fallback
-  useEffect(() => {
-    if (source === "fallback") setOrigin(fallback);
-  }, [fallback.lat, fallback.lng, source]);
 
   useEffect(() => {
     if (autoRequest) requestLocation();

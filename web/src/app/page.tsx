@@ -27,7 +27,6 @@ export default function Home() {
   })
 
   const { origin, source, status, requestLocation } = useUserLocation({
-    fallback: { lat: 35.6900, lng: 139.7000 }, // Shinjuku test coords
     autoRequest: true,
   });
   

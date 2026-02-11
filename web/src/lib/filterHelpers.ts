@@ -1,7 +1,7 @@
-import type { Gym } from "@/types/gymSchema"
+import type { GymDerived } from "@/types/gymDerived";
 import { Filters } from "@/types/filters"; 
 
-export function filterGyms(gyms: Gym[], filters: Filters): Gym[] {
+export function filterGyms(gyms: GymDerived[], filters: Filters): GymDerived[] {
     return gyms.filter((gym) => {
         if (filters.hangboard && !gym.hangboard) return false
         if (filters.campusBoard && !gym.campusBoard) return false

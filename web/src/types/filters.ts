@@ -4,5 +4,3 @@ export type Filters = {
     campusBoard: boolean;
     sprayWall: boolean;
   };
-
-  

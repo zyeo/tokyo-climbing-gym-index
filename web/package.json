@@ -7,10 +7,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint", 
-    "build:stations": "node scripts/clean-stations.js"
+    "lint": "eslint",
+    "build:stations": "node scripts/clean-stations.js",
+    "build:gymlist": "node scripts/csv-to-json.js"
   },
   "dependencies": {
+    "csv-parse": "^6.1.0",
     "leaflet": "^1.9.4",
     "next": "^16.1.1",
     "react": "^19.2.3",

@@ -165,5 +165,59 @@
     "sprayWall": false,
     "trainingBoards": [],
     "notes": "Same setters as maboo"
+  },
+  {
+    "name": "NOBOROCK Takadanobaba",
+    "location": "〒169-0075 Tokyo, Shinjuku City, Takadanobaba, 4 Chome−9−9 1F",
+    "plusCode": "PP73+82 Shinjuku City, Tokyo",
+    "latitude": 35.713282,
+    "longitude": 139.702498,
+    "style": [
+      "Beginner"
+    ],
+    "size": 1,
+    "cost": 1,
+    "quality": 1,
+    "hangboard": false,
+    "campusBoard": false,
+    "sprayWall": false,
+    "trainingBoards": [],
+    "notes": ""
+  },
+  {
+    "name": "NOBOROCK Shibuya",
+    "location": "〒150-0031 Tokyo, Shibuya, Sakuragaokacho, 9−1 ビアンクォードビル B1",
+    "plusCode": "MP33+W4 Shibuya, Tokyo",
+    "latitude": 35.654827,
+    "longitude": 139.702823,
+    "style": [
+      "Beginner"
+    ],
+    "size": 2,
+    "cost": 1,
+    "quality": 1,
+    "hangboard": true,
+    "campusBoard": false,
+    "sprayWall": false,
+    "trainingBoards": [],
+    "notes": "crowded"
+  },
+  {
+    "name": "PUMP2 Kawasaki",
+    "location": "〒214-0012 Kanagawa, Kawasaki, Tama Ward, Nakanoshima, 2 Chome−9−30 スポーツキューブ",
+    "plusCode": "JGGX+4R Kawasaki, Kanagawa",
+    "latitude": 35.625311,
+    "longitude": 139.54949,
+    "style": [
+      "Lead Gym"
+    ],
+    "size": 3,
+    "cost": 3,
+    "quality": 4,
+    "hangboard": true,
+    "campusBoard": true,
+    "sprayWall": true,
+    "trainingBoards": [],
+    "notes": "spacious chill area"
   }
 ]

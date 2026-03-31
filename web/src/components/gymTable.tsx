@@ -33,7 +33,6 @@ export default function GymTable({ gyms }: { gyms: GymDerived[] }) {
         <thead className="bg-gray-100 sticky top-0 z-10">
           <tr>
             <th className="border p-2">Name</th>
-            <th className="border p-2">Location</th>
             <th className="border p-2">Style</th>
             <th 
               className="border p-2 cursor-pointer select-none"
@@ -69,7 +68,6 @@ export default function GymTable({ gyms }: { gyms: GymDerived[] }) {
           {sortedGyms.map((gym, i) => (
             <tr key={i} className="hover:bg-gray-50">
               <td className="border p-2 font-medium">{gym.name}</td>
-              <td className="border p-2">{gym.plusCode}</td>
               <td className="border p-2">{gym.style.join(', ')}</td>
               <td className="border p-2">{SIZE_MAP[gym.size]}</td>
               <td className="border p-2">{COST_MAP[gym.cost]}</td>

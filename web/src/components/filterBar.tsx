@@ -1,7 +1,5 @@
 'use client'
-import { useState } from "react"
 import { Filters } from "@/types/filters"
-import { filterGyms } from "@/lib/filterHelpers";
 
 type FilterBarProps = {
     filters: Filters;
@@ -9,51 +7,76 @@ type FilterBarProps = {
   };
 
 export default function FilterBar({filters, onChange}: FilterBarProps) {
+  const hasActiveFilters =
+  filters.hangboard || filters.campusBoard || filters.sprayWall
+
+  function toggleFilter(key: keyof Filters) {
+    onChange({
+      ...filters,
+      [key]: !filters[key],
+    })
+  }
+
+  function clearFilters() {
+    onChange({
+      hangboard: false,
+      campusBoard: false,
+      sprayWall: false,
+    })
+  }
+
+  const pillBase =
+    "rounded-md border px-3 py-1 text-sm transition-colors"
+  const pillInactive =
+    "border-stone-500 bg-transparent text-stone-700 hover:bg-stone-100"
+  const pillActive =
+    "border-stone-800 bg-stone-800 text-white"
+
+  
   return (
-    <div className="mb-4 flex flex-wrap items-center gap-4">
-      {/* Hangboard */}
-      <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={filters.hangboard}
-          onChange={() =>
-            onChange({
-              ...filters,
-              hangboard: !filters.hangboard,
-              
-            })
-          }
-        />
-        <span>Hangboard</span>
-      </label>
-    {/* Campus Board */}
-    <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={filters.campusBoard}
-          onChange={() =>
-            onChange({
-              ...filters,
-              campusBoard: !filters.campusBoard,
-            })
-          }
-        />
-        <span>Campus Board</span>
-      </label>
-    {/* Spray Wall */}
-    <label className="flex items-center gap-2 text-sm">
-        <input
-          type="checkbox"
-          checked={filters.sprayWall}
-          onChange={() =>
-            onChange({
-              ...filters,
-              sprayWall: !filters.sprayWall,
-            })
-          }
-        />
-        <span>Spray Wall</span>
-      </label>
+    <div className="mb-2 flex flex-wrap items-center justify-between border border-stone-500 gap-2 px-3 py-2">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-sm font-semibold text-stone-800">Filters</span>
+
+        <button
+          type="button"
+          onClick={() => toggleFilter("hangboard")}
+          className={`${pillBase} ${
+            filters.hangboard ? pillActive : pillInactive
+          }`}
+        >
+          Hangboard
+        </button>
+
+        <button
+          type="button"
+          onClick={() => toggleFilter("campusBoard")}
+          className={`${pillBase} ${
+            filters.campusBoard ? pillActive : pillInactive
+          }`}
+        >
+          Campus Board
+        </button>
+
+        <button
+          type="button"
+          onClick={() => toggleFilter("sprayWall")}
+          className={`${pillBase} ${
+            filters.sprayWall ? pillActive : pillInactive
+          }`}
+        >
+          Spray Wall
+        </button>
+      </div>
+
+      <button
+        type="button"
+        onClick={clearFilters}
+        disabled={!hasActiveFilters}
+        className="text-sm underline underline-offset-2 disabled:cursor-default disabled:opacity-40"
+      >
+        Clear
+      </button>
     </div>
   )
 }

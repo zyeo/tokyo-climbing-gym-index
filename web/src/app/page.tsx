@@ -51,25 +51,35 @@ export default function Home() {
 
   return (  
     <main className="p-6 font-mono">
-      <h1 className="text-2xl font-bold border-b pb-2 mb-4">
-        Tokyo Climbing Gym Index
-      </h1>
-      <p>A minimalist database for climbers training hard in Tokyo.</p>
-      <FilterBar 
-        filters={filters} 
-        onChange={setFilters} 
-      />
-      <GymTable 
-        gyms={filteredGyms} 
-        onSelectGym={setSelectedGymName} 
-        selectedGymName={selectedGymName}
-      />
-      <GymMap  
-        gyms={filteredGymsForMap} 
-        selectedGymName={selectedGymName} 
-        origin={origin}
-        onResetMap={() => setSelectedGymName(null)}
-      />
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold border-b pb-2 mb-4">
+          Tokyo Climbing Gym Index
+        </h1>
+        <p className="mt-1 text-base text-stone-700">
+          A minimalist database for climbers training hard in Tokyo.
+        </p>
+      </div>
+
+      <div className="overflow-hidden">
+        <FilterBar 
+          filters={filters} 
+          onChange={setFilters} 
+        />
+        <GymTable 
+          gyms={filteredGyms} 
+          onSelectGym={setSelectedGymName} 
+          selectedGymName={selectedGymName}
+        />
+      </div>
+      <div className="mt-4">
+        
+      </div>
+        <GymMap  
+          gyms={filteredGymsForMap} 
+          selectedGymName={selectedGymName} 
+          origin={origin}
+          onResetMap={() => setSelectedGymName(null)}
+        />
 
     </main>
   );

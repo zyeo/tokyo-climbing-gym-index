@@ -1,7 +1,7 @@
 "use client"; 
 
-import { useEffect, useMemo, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect, useMemo, useState, useRef} from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 
 // Fix default marker icons (common Next.js + Leaflet issue)
@@ -24,6 +24,9 @@ const UserIcon = L.icon({
   shadowSize: [41, 41],
 });
 
+const DEFAULT_CENTER: [number, number] = [35.68, 139.76]
+const DEFAULT_ZOOM = 11
+
 export type GymForMap = {
   name: string;
   latitude: number;
@@ -34,14 +37,48 @@ type Props = {
   gyms: GymForMap[];
   center?: [number, number];
   zoom?: number;
+  selectedGymName: string | null;
 };
 
 type LatLng = { lat: number; lng: number };
+
+function FlyToSelectedGym({
+  gyms,
+  selectedGymName,
+}: {
+  gyms: {
+    name: string
+    latitude: number
+    longitude: number
+  }[]
+  selectedGymName: string | null
+}) {
+  const map = useMap()
+
+  useEffect(() => {
+    if (!selectedGymName) {
+      map.flyTo(DEFAULT_CENTER, DEFAULT_ZOOM, {
+        duration: 0.8,
+      })
+      return
+    }
+
+    const selectedGym = gyms.find((gym) => gym.name === selectedGymName)
+    if (!selectedGym) return
+
+    map.flyTo([selectedGym.latitude, selectedGym.longitude], 14, {
+      duration: 0.8,
+    })
+  }, [gyms, selectedGymName, map])
+
+  return null
+}
 
 export default function GymMap({
   gyms,
   center = [35.6812, 139.7671], // Tokyo Station-ish
   zoom = 11,
+  selectedGymName,
 }: Props) {
   const [userLoc, setUserLoc] = useState<LatLng | null>(null);
 
@@ -81,6 +118,8 @@ export default function GymMap({
           attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        
+        <FlyToSelectedGym gyms={gyms} selectedGymName={selectedGymName} />
         
         {userLoc && (
           <Marker position={[userLoc.lat, userLoc.lng]} icon={UserIcon}>

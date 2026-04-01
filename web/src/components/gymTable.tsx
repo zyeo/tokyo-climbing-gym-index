@@ -5,7 +5,13 @@ import { useState } from "react"
 import { SIZE_MAP, COST_MAP, QUALITY_MAP, DEFAULT_SORT_ORDER, BOOLEAN_MAP} from "@/constants/gymConfig";
 import { sortGyms, type SortKey, type SortDir } from "@/lib/sortHelpers"; 
 
-export default function GymTable({ gyms }: { gyms: GymDerived[] }) {
+type GymTableProps = {
+  gyms: GymDerived[]
+  onSelectGym: (gymName: string | null) => void
+  selectedGymName: string | null
+}
+
+export default function GymTable({ gyms, onSelectGym, selectedGymName }: GymTableProps) {
   const [sortKey, setSortKey] = useState<SortKey | null>(null)
   const [sortDir, setSortDir] = useState<SortDir>("desc")
 
@@ -66,8 +72,20 @@ export default function GymTable({ gyms }: { gyms: GymDerived[] }) {
         </thead>
         <tbody>
           {sortedGyms.map((gym, i) => (
-            <tr key={i} className="hover:bg-gray-50">
-              <td className="border p-2 font-medium">{gym.name}</td>
+            <tr 
+              key={i} 
+              className={`hover:bg-gray-100 ${selectedGymName === gym.name ? "bg-gray-300" : ""}`}
+            >
+
+              <td className="border p-2 font-medium">
+                <button 
+                  type="button"
+                  onClick={() => onSelectGym(selectedGymName === gym.name ? null : gym.name) }
+                  className="text-left underline"
+                >
+                  {gym.name}
+                </button>
+              </td>
               <td className="border p-2">{gym.style.join(', ')}</td>
               <td className="border p-2">{SIZE_MAP[gym.size]}</td>
               <td className="border p-2">{COST_MAP[gym.cost]}</td>

@@ -19,12 +19,15 @@ import { useUserLocation } from '@/hooks/useUserLocation';
 
 const GymMap = dynamic(() => import('@/components/gymMap'), { ssr: false });
 
+
 export default function Home() {
   const [filters, setFilters] = useState<Filters>({
     hangboard: false,
     campusBoard: false,
     sprayWall: false,
   })
+
+  const [selectedGymName, setSelectedGymName] = useState<string | null>(null)
 
   const { origin, source, status, requestLocation } = useUserLocation({
     autoRequest: true,
@@ -44,7 +47,9 @@ export default function Home() {
     longitude: gym.longitude!,
   }));
 
-  return (
+  console.log(selectedGymName)
+  
+  return (  
     <main className="p-6 font-mono">
       <h1 className="text-2xl font-bold border-b pb-2 mb-4">
         Tokyo Climbing Gym Index
@@ -52,8 +57,8 @@ export default function Home() {
       <p>A minimalist database for climbers training hard in Tokyo.</p>
       {/* TODO: add a filter component */}
       <FilterBar filters={filters} onChange={setFilters} />
-      <GymTable gyms={filteredGyms} />
-      <GymMap  gyms={filteredGymsForMap} />
+      <GymTable gyms={filteredGyms} onSelectGym={setSelectedGymName} selectedGymName={selectedGymName}/>
+      <GymMap  gyms={filteredGymsForMap} selectedGymName={selectedGymName}/>
     </main>
   );
 }

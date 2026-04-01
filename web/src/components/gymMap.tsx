@@ -62,11 +62,25 @@ function FlyToSelectedGym({
       map.flyTo(DEFAULT_CENTER, DEFAULT_ZOOM, {
         duration: 0.8,
       })
+
+      map.closePopup()
+      
       return
     }
 
     const selectedGym = gyms.find((gym) => gym.name === selectedGymName)
     if (!selectedGym) return
+
+    map.eachLayer((layer: any) => {
+      if (
+        layer.getLatLng &&
+        layer.getPopup &&
+        layer.getLatLng().lat === selectedGym.latitude &&
+        layer.getLatLng().lng === selectedGym.longitude
+      ) {
+        layer.openPopup()
+      }
+    })
 
     map.flyTo([selectedGym.latitude, selectedGym.longitude], 14, {
       duration: 0.8,

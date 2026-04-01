@@ -55,9 +55,22 @@ export default function Home() {
         Tokyo Climbing Gym Index
       </h1>
       <p>A minimalist database for climbers training hard in Tokyo.</p>
-      <FilterBar filters={filters} onChange={setFilters} />
-      <GymTable gyms={filteredGyms} onSelectGym={setSelectedGymName} selectedGymName={selectedGymName}/>
-      <GymMap  gyms={filteredGymsForMap} selectedGymName={selectedGymName} origin={origin}/>
+      <FilterBar 
+        filters={filters} 
+        onChange={setFilters} 
+      />
+      <GymTable 
+        gyms={filteredGyms} 
+        onSelectGym={setSelectedGymName} 
+        selectedGymName={selectedGymName}
+      />
+      <GymMap  
+        gyms={filteredGymsForMap} 
+        selectedGymName={selectedGymName} 
+        origin={origin}
+        onResetMap={() => setSelectedGymName(null)}
+      />
+
     </main>
   );
 }

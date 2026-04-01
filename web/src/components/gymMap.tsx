@@ -13,6 +13,13 @@ const DefaultIcon = L.icon({
     iconAnchor: [12, 41],
   });
 
+const SelectedIcon = L.icon({
+  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
+  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+});
+
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const UserIcon = L.icon({
@@ -40,6 +47,7 @@ type Props = {
   zoom?: number;
   selectedGymName: string | null;
   origin: LatLng | null;
+  onResetMap: () => void;
 };
 
 type LatLng = { lat: number; lng: number };
@@ -64,7 +72,7 @@ function FlyToSelectedGym({
       })
 
       map.closePopup()
-      
+
       return
     }
 
@@ -90,12 +98,35 @@ function FlyToSelectedGym({
   return null
 }
 
+function ResetMapButton({
+  onResetMap,
+}: {
+  onResetMap: () => void
+}) {
+  const map = useMap()
+
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        map.closePopup()
+        map.flyTo(DEFAULT_CENTER, DEFAULT_ZOOM, { duration: 0.8 })
+        onResetMap()
+      }}
+      className="absolute right-3 top-3 z-[1000] rounded-lg border bg-white px-3 py-1 text-sm shadow hover:bg-gray-50"
+    >
+      Reset View
+    </button>
+  )
+}
+
 export default function GymMap({
   gyms,
   center = [35.6812, 139.7671], // Tokyo Station-ish
   zoom = 11,
   selectedGymName,
   origin,
+  onResetMap,
 }: Props) {
 
   return (    
@@ -110,6 +141,7 @@ export default function GymMap({
           attribution="&copy; OpenStreetMap contributors"
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <ResetMapButton onResetMap={onResetMap} />
         
         <FlyToSelectedGym gyms={gyms} selectedGymName={selectedGymName} />
         
@@ -126,9 +158,14 @@ export default function GymMap({
             destination: { lat: g.latitude, lng: g.longitude },
             origin,
           })
+          const isSelected = g.name === selectedGymName
 
           return (
-            <Marker key={g.name} position={[g.latitude, g.longitude]}>
+            <Marker 
+              key={g.name} 
+              position={[g.latitude, g.longitude]}
+              icon={isSelected ? SelectedIcon : DefaultIcon}
+            >
               <Popup>
                 <strong>{g.name}</strong>
                 <br />

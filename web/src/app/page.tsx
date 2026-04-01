@@ -48,17 +48,16 @@ export default function Home() {
   }));
 
   console.log(selectedGymName)
-  
+
   return (  
     <main className="p-6 font-mono">
       <h1 className="text-2xl font-bold border-b pb-2 mb-4">
         Tokyo Climbing Gym Index
       </h1>
       <p>A minimalist database for climbers training hard in Tokyo.</p>
-      {/* TODO: add a filter component */}
       <FilterBar filters={filters} onChange={setFilters} />
       <GymTable gyms={filteredGyms} onSelectGym={setSelectedGymName} selectedGymName={selectedGymName}/>
-      <GymMap  gyms={filteredGymsForMap} selectedGymName={selectedGymName}/>
+      <GymMap  gyms={filteredGymsForMap} selectedGymName={selectedGymName} origin={origin}/>
     </main>
   );
 }

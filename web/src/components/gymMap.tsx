@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState, useRef} from "react";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
+import { buildGoogleMapsUrl } from "@/lib/mapLinks";
 
 // Fix default marker icons (common Next.js + Leaflet issue)
 const DefaultIcon = L.icon({
@@ -38,6 +39,7 @@ type Props = {
   center?: [number, number];
   zoom?: number;
   selectedGymName: string | null;
+  origin: LatLng | null;
 };
 
 type LatLng = { lat: number; lng: number };
@@ -79,32 +81,8 @@ export default function GymMap({
   center = [35.6812, 139.7671], // Tokyo Station-ish
   zoom = 11,
   selectedGymName,
+  origin,
 }: Props) {
-  const [userLoc, setUserLoc] = useState<LatLng | null>(null);
-
-  useEffect(() => {
-    if (!navigator.geolocation) return;
-
-    const watchId = navigator.geolocation.watchPosition(
-      (pos) => {
-        setUserLoc({
-          lat: pos.coords.latitude,
-          lng: pos.coords.longitude,
-        });
-      },
-      (err) => {
-        // denied/unavailable is fine; just don't show user marker
-        console.warn("Geolocation error:", err);
-      },
-      {
-        enableHighAccuracy: true,
-        maximumAge: 5000, // allow cached position up to 5s old
-        timeout: 10000,
-      }
-    );
-
-    return () => navigator.geolocation.clearWatch(watchId);
-  }, []);
 
   return (    
     <div className="w-full h-[520px] rounded-2xl overflow-hidden">
@@ -121,21 +99,37 @@ export default function GymMap({
         
         <FlyToSelectedGym gyms={gyms} selectedGymName={selectedGymName} />
         
-        {userLoc && (
-          <Marker position={[userLoc.lat, userLoc.lng]} icon={UserIcon}>
+        {origin && (
+          <Marker position={[origin.lat, origin.lng]} icon={UserIcon}>
             <Popup>
               <strong>You are here</strong>
             </Popup>
           </Marker>
         )}
 
-        {gyms.map((g) => (
-          <Marker key={g.name} position={[g.latitude, g.longitude]}>
-            <Popup>
-              <strong>{g.name}</strong>
-            </Popup>
-          </Marker>
-        ))}
+        {gyms.map((g) => {
+          const directionsUrl = buildGoogleMapsUrl({
+            destination: { lat: g.latitude, lng: g.longitude },
+            origin,
+          })
+
+          return (
+            <Marker key={g.name} position={[g.latitude, g.longitude]}>
+              <Popup>
+                <strong>{g.name}</strong>
+                <br />
+                <a
+                  href={directionsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline text-sm"
+                >
+                  Directions
+                </a>
+              </Popup>
+            </Marker>
+          )
+        })}
       </MapContainer>
     </div>
   );
